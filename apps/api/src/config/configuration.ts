@@ -9,6 +9,6 @@ export default () => ({
   DB_DATABASE: process.env.DB_DATABASE || 'db',
 
   REDIS_HOST: process.env.REDIS_HOST || 'localhost',
-  REDIS_PORT: parseInt(process.env.REDIS_PORT, 10) || 6397,
+  REDIS_PORT: process.env.REDIS_PORT || 6397,
   TOKEN_SECRET: process.env.TOKEN_SECRET || 'very_secret',
 });

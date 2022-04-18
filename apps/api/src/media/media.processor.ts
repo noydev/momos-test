@@ -12,7 +12,9 @@ export class MediaProcessor {
   @Process('crawler')
   async handleTranscode(job: Job) {
     try {
+      this.logger.debug(`Start crawling ${job.data}`);
       const crawledMedias = await crawlMedia(job.data);
+      this.logger.debug(`Crawled ${crawledMedias.length} images`);
 
       await Promise.all(
         crawledMedias.map(async (mediaDto) => {

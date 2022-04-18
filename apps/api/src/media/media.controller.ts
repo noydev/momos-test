@@ -14,6 +14,7 @@ import { InjectQueue } from '@nestjs/bull';
 import { CrawlListMediaDto } from './dto/media-crawl-list.dto';
 import { PaginationDto } from './dto/pagination.dto';
 import { MediaResponseDto } from './dto/media-response.dto';
+import { QueryOptionDto } from './dto/query-option.dto';
 
 @Controller('media')
 export class MediaController {
@@ -33,12 +34,12 @@ export class MediaController {
         return await this.mediaQueue.add('crawler', url);
       })
     );
-    return {};
+    return { status: 'ok' };
   }
 
   @Get()
-  findAll(@Query() paginationDto: PaginationDto): Promise<MediaResponseDto> {
-    return this.mediaService.findAll(paginationDto);
+  findAll(@Query() queryOptionDto: QueryOptionDto): Promise<MediaResponseDto> {
+    return this.mediaService.findAll(queryOptionDto);
   }
 
   @Get(':id')

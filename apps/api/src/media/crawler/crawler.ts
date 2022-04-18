@@ -14,14 +14,12 @@ export default async function crawlMedia(
   page.on('response', async (response) => {
     // const url = response.url();
     if (response.request().resourceType() === 'image') {
-      console.log(response.request().url());
       listMediaDto.push({
         type: 'image',
         url: response.request().url(),
         origin: crawlUrl,
       });
     } else if (response.request().resourceType() === 'media') {
-      console.log(response.request().url());
       listMediaDto.push({
         type: 'video',
         url: response.request().url(),

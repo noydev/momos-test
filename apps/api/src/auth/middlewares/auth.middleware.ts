@@ -24,8 +24,10 @@ export class AuthMiddleware implements NestMiddleware {
       );
 
     jwt.verify(token, this.tokenSecret, (err: Error) => {
-      this.logger.warn(err);
-      if (err) throw new UnauthorizedException('Invalid');
+      if (err) {
+        this.logger.warn(err);
+        throw new UnauthorizedException('Invalid');
+      }
 
       return next();
     });

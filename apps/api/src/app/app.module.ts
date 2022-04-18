@@ -21,7 +21,7 @@ import { AppService } from './app.service';
       useFactory: (configService: ConfigService) => ({
         redis: {
           host: configService.get('REDIS_HOST'),
-          port: +configService.get<number>('REDIS_PORT'),
+          port: 6379,
         },
       }),
       inject: [ConfigService],
