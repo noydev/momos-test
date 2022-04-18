@@ -1,10 +1,12 @@
 # MomosTest
 
+| _Work In Progres_
+
 This project was generated using [Nx](https://nx.dev).
 
-What have not been working:
+What have NOT been working:
 
-- Dockerize apps
+- Dockerize the apps
 
 To try try this project:
 
