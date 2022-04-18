@@ -12,22 +12,37 @@ export default async function crawlMedia(
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   page.on('response', async (response) => {
-    // const url = response.url();
     if (response.request().resourceType() === 'image') {
-      listMediaDto.push({
-        type: 'image',
-        url: response.request().url(),
-        origin: crawlUrl,
-      });
-    } else if (response.request().resourceType() === 'media') {
-      listMediaDto.push({
-        type: 'video',
-        url: response.request().url(),
-        origin: crawlUrl,
-      });
+      response
+        .buffer()
+        .then((file) => {
+          if (file.length > 2000) {
+            listMediaDto.push({
+              type: 'image',
+              url: response.request().url(),
+              origin: crawlUrl,
+            });
+          }
+        })
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        .catch((err) => {});
     }
   });
   await page.goto(crawlUrl);
+  const videoList = await page.evaluate(() =>
+    Array.from(
+      document.querySelectorAll('video'),
+      (element) => element.currentSrc
+    )
+  );
+  const videoDto = videoList.map((video) => {
+    return {
+      type: 'video',
+      url: video,
+      origin: crawlUrl,
+    };
+  });
+  listMediaDto.push(...videoDto);
   await browser.close();
   return listMediaDto;
 }

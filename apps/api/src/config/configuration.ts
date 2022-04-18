@@ -6,7 +6,7 @@ export default () => ({
 
   DB_USERNAME: process.env.DB_USERNAME || 'root',
   DB_PASSWORD: process.env.DB_PASSWORD || 'test',
-  DB_DATABASE: process.env.DB_DATABASE || 'db',
+  DB_DATABASE: process.env.DB_DATABASE || 'test',
 
   REDIS_HOST: process.env.REDIS_HOST || 'localhost',
   REDIS_PORT: process.env.REDIS_PORT || 6397,

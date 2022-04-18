@@ -17,7 +17,8 @@ export class Media {
   })
   type: string;
 
-  @Column({
+  @Column('varchar', {
+    length: 5000,
     nullable: false,
   })
   url: string;
