@@ -1,5 +1,47 @@
-version: '3.3'
+version: "3.8"
+
+networks:
+  corp:
+    driver: bridge
+
 services:
+  api:
+    container_name: api
+    build:
+      context: ./
+      dockerfile: ./apps/api/Dockerfile
+      args:
+        NODE_ENV: "development"
+        BUILD_FLAG: ""
+    image: api:nx-dev
+    ports:
+      - 4939:4939
+    environment:
+      NODE_ENV: "development"
+      PORT: 4939
+    networks:
+      - corp
+    restart: on-failure
+
+  web:
+    container_name: web
+    build:
+      context: ./
+      cache_from:
+        - nginx:1.19.2
+      dockerfile: ./apps/web/Dockerfile
+      args:
+        NODE_ENV: "development"
+        BUILD_FLAG: ""
+    image: web:nx-dev
+    ports:
+      - 4900:80
+    environment:
+      NODE_ENV: "development"
+      PORT: 4900
+    networks:
+      - corp
+    restart: on-failure
   db:
     image: mariadb
     restart: always
@@ -19,5 +61,6 @@ services:
     hostname: redis
     ports:
       - "6379:6379"
+
 volumes:
   my-db:

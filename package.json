@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start:web": "nx run web:serve",
-    "start:api": "nx run api:serve",
+    "start:all": "nx run-many --target=serve --projects=api,web",
+    "start:web": "nx serve web",
+    "start:api": "nx serve api",
     "build": "nx build",
     "test": "nx test"
   },
